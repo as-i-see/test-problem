@@ -3,10 +3,10 @@ package yevheniikarlov.analyticaltool.data.parameter;
 import java.util.Objects;
 
 public class Service {
-  private int serviceId;
-  private int variationId;
+  private Integer serviceId;
+  private Integer variationId;
 
-  public Service(int serviceId, int variationId) {
+  public Service(Integer serviceId, Integer variationId) {
     this.serviceId = serviceId;
     this.variationId = variationId;
   }
@@ -15,10 +15,11 @@ public class Service {
   public boolean equals(Object o) {
     if (this == o)
       return true;
-    if (o == null || getClass() != o.getClass())
+    if (!(o instanceof Service))
       return false;
     Service service = (Service) o;
-    return serviceId == service.serviceId && variationId == service.variationId;
+    return Objects.equals(serviceId, service.serviceId)
+        && Objects.equals(variationId, service.variationId);
   }
 
   @Override

@@ -1,14 +1,15 @@
 package yevheniikarlov;
 
-import yevheniikarlov.analyticaltool.data.parameter.Date;
+import java.util.Scanner;
 
-import java.time.LocalDate;
+import yevheniikarlov.analyticaltool.io.IO;
+import yevheniikarlov.analyticaltool.io.impl.ConsoleIO;
 
 public class Main {
 
-    public static void main(String[] args) {
-	    String s = "15.10.2012";
-        LocalDate localDate = LocalDate.parse(s, Date.format);
-        System.out.println(localDate);
-    }
+  public static void main(String[] args) {
+    Scanner scanner = new Scanner(System.in);
+    int S = scanner.nextInt();
+    IO io = new ConsoleIO(scanner);
+  }
 }

@@ -3,11 +3,12 @@ package yevheniikarlov.analyticaltool.data.parameter;
 import java.util.Objects;
 
 public class Question {
-  private int questionTypeId;
-  private int categoryId;
-  private int subCategoryId;
+  private Integer questionTypeId;
+  private Integer categoryId;
+  private Integer subCategoryId;
 
-  public Question(int questionTypeId, int categoryId, int subCategoryId) {
+  public Question(Integer questionTypeId, Integer categoryId,
+      Integer subCategoryId) {
     this.questionTypeId = questionTypeId;
     this.categoryId = categoryId;
     this.subCategoryId = subCategoryId;
@@ -17,12 +18,12 @@ public class Question {
   public boolean equals(Object o) {
     if (this == o)
       return true;
-    if (o == null || getClass() != o.getClass())
+    if (!(o instanceof Question))
       return false;
     Question question = (Question) o;
-    return questionTypeId == question.questionTypeId
-        && categoryId == question.categoryId
-        && subCategoryId == question.subCategoryId;
+    return Objects.equals(questionTypeId, question.questionTypeId)
+        && Objects.equals(categoryId, question.categoryId)
+        && Objects.equals(subCategoryId, question.subCategoryId);
   }
 
   @Override
