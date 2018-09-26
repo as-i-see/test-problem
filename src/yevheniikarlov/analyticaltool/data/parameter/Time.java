@@ -3,10 +3,14 @@ package yevheniikarlov.analyticaltool.data.parameter;
 import java.util.Objects;
 
 public class Time {
-  private int time;
+  private int minutes;
 
-  public Time(int time) {
-    this.time = time;
+  public Time(int minutes) {
+    this.minutes = minutes;
+  }
+
+  public int getMinutes() {
+    return minutes;
   }
 
   @Override
@@ -16,11 +20,11 @@ public class Time {
     if (o == null || getClass() != o.getClass())
       return false;
     Time time1 = (Time) o;
-    return time == time1.time;
+    return minutes == time1.minutes;
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(time);
+    return Objects.hash(minutes);
   }
 }

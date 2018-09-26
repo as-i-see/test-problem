@@ -35,28 +35,30 @@ class Parser {
   }
 
   private Service parseService(String s) {
-    String[] strings = s.split(".", 2);
+    if (s.equals("*"))
+      return null;
+    String[] strings = s.split("\\.");
     Integer serviceId = Integer.valueOf(strings[0]);
     Integer variationId = null;
-    if (!strings[1].equals("")) {
+    if (strings.length > 1) {
       variationId = Integer.valueOf(strings[1]);
     }
     return new Service(serviceId, variationId);
-
   }
 
   private Question parseQuestion(String s) {
-    String[] strings = s.split(".", 3);
+    if (s.equals("*"))
+      return null;
+    String[] strings = s.split("\\.");
     Integer questionId = Integer.valueOf(strings[0]);
     Integer categoryId = null;
     Integer subCategoryId = null;
-    if (!strings[1].equals("")) {
+    if (strings.length > 1) {
       categoryId = Integer.valueOf(strings[1]);
-      if (!strings[2].equals(""))
+      if (strings.length > 2)
         subCategoryId = Integer.valueOf(strings[2]);
     }
     return new Question(questionId, categoryId, subCategoryId);
-
   }
 
   private ResponseType parseResponseType(String s) {
@@ -64,10 +66,11 @@ class Parser {
   }
 
   private Date[] parseQueryDates(String s) {
-    String[] datesStrings = s.split("-", 2);
+    String[] datesStrings = s.split("-");
     Date[] dates = new Date[2];
     dates[0] = parseDate(datesStrings[0]);
-    dates[1] = parseDate(datesStrings[1]);
+    if (datesStrings.length > 1)
+      dates[1] = parseDate(datesStrings[1]);
     return dates;
   }
 

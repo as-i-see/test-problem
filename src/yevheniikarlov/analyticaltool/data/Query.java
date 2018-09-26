@@ -3,18 +3,22 @@ package yevheniikarlov.analyticaltool.data;
 import java.util.Objects;
 
 import yevheniikarlov.analyticaltool.data.parameter.Date;
-import yevheniikarlov.analyticaltool.data.parameter.Question;
-import yevheniikarlov.analyticaltool.data.parameter.ResponseType;
-import yevheniikarlov.analyticaltool.data.parameter.Service;
 
 public class Query extends Data {
   private Date dateFrom;
   private Date dateTo;
 
   public Query(Data data, Date dateFrom, Date dateTo) {
-    super(data.service, data.question, data.responseType);
+    super(data.getService(), data.getQuestion(), data.getResponseType());
     this.dateFrom = dateFrom;
     this.dateTo = dateTo;
+  }
+
+  public boolean isMatching(WaitingTimeLine record) {
+    return record.getService().isBelongs(super.getService())
+        && record.getQuestion().isBelongs(super.getQuestion())
+        && record.getResponseType().equals(super.getResponseType())
+        && record.getDate().isBetween(dateFrom, dateTo);
   }
 
   @Override

@@ -11,19 +11,13 @@ public class Service {
     this.variationId = variationId;
   }
 
-  @Override
-  public boolean equals(Object o) {
-    if (this == o)
+  public boolean isBelongs(Service holder) {
+    if (Objects.isNull(holder))
       return true;
-    if (!(o instanceof Service))
-      return false;
-    Service service = (Service) o;
-    return Objects.equals(serviceId, service.serviceId)
-        && Objects.equals(variationId, service.variationId);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(serviceId, variationId);
+    boolean isBelongs = Objects.equals(holder.serviceId, serviceId);
+    if (Objects.nonNull(holder.variationId)) {
+      isBelongs = Objects.equals(holder.variationId, variationId);
+    }
+    return isBelongs;
   }
 }

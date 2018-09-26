@@ -7,9 +7,9 @@ import yevheniikarlov.analyticaltool.data.parameter.ResponseType;
 import yevheniikarlov.analyticaltool.data.parameter.Service;
 
 public class Data {
-  protected Service service;
-  protected Question question;
-  protected ResponseType responseType;
+  private Service service;
+  private Question question;
+  private ResponseType responseType;
 
   public Data(Service service, Question question, ResponseType responseType) {
     this.service = service;
@@ -27,6 +27,18 @@ public class Data {
     return Objects.equals(service, data.service)
         && Objects.equals(question, data.question)
         && responseType == data.responseType;
+  }
+
+  public Service getService() {
+    return service;
+  }
+
+  public Question getQuestion() {
+    return question;
+  }
+
+  public ResponseType getResponseType() {
+    return responseType;
   }
 
   @Override

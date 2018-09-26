@@ -10,9 +10,17 @@ public class WaitingTimeLine extends Data {
   private Time time;
 
   public WaitingTimeLine(Data data, Date date, Time time) {
-    super(data.service, data.question, data.responseType);
+    super(data.getService(), data.getQuestion(), data.getResponseType());
     this.date = date;
     this.time = time;
+  }
+
+  public Date getDate() {
+    return date;
+  }
+
+  public Time getTime() {
+    return time;
   }
 
   @Override

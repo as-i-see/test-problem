@@ -14,20 +14,16 @@ public class Question {
     this.subCategoryId = subCategoryId;
   }
 
-  @Override
-  public boolean equals(Object o) {
-    if (this == o)
+  public boolean isBelongs(Question holder) {
+    if (Objects.isNull(holder))
       return true;
-    if (!(o instanceof Question))
-      return false;
-    Question question = (Question) o;
-    return Objects.equals(questionTypeId, question.questionTypeId)
-        && Objects.equals(categoryId, question.categoryId)
-        && Objects.equals(subCategoryId, question.subCategoryId);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(questionTypeId, categoryId, subCategoryId);
+    boolean isBelongs = Objects.equals(holder.questionTypeId, questionTypeId);
+    if (Objects.nonNull(holder.categoryId)) {
+      isBelongs = Objects.equals(holder.categoryId, categoryId);
+      if (Objects.nonNull(holder.subCategoryId)) {
+        isBelongs = Objects.equals(holder.subCategoryId, subCategoryId);
+      }
+    }
+    return isBelongs;
   }
 }
