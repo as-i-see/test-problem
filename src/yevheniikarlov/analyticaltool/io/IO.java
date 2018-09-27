@@ -1,9 +1,11 @@
 package yevheniikarlov.analyticaltool.io;
 
-import yevheniikarlov.analyticaltool.data.Data;
+import yevheniikarlov.analyticaltool.data.DataEntry;
 
 public interface IO {
-  Data readDataLine();
+  int readCount();
+
+  DataEntry readDataEntry();
 
   void printLine(String s);
 }

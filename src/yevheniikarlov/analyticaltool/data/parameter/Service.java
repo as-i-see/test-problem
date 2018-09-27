@@ -6,18 +6,22 @@ public class Service {
   private Integer serviceId;
   private Integer variationId;
 
+  protected Service() {}
+
   public Service(Integer serviceId, Integer variationId) {
     this.serviceId = serviceId;
     this.variationId = variationId;
   }
 
-  public boolean isBelongs(Service holder) {
-    if (Objects.isNull(holder))
-      return true;
-    boolean isBelongs = Objects.equals(holder.serviceId, serviceId);
-    if (Objects.nonNull(holder.variationId)) {
-      isBelongs = Objects.equals(holder.variationId, variationId);
+  public boolean embraces(Service other) {
+    boolean embraces = Objects.equals(serviceId, other.serviceId);
+    if (this.hasVariation()) {
+      embraces = Objects.equals(variationId, other.variationId);
     }
-    return isBelongs;
+    return embraces;
+  }
+
+  private boolean hasVariation() {
+    return Objects.nonNull(variationId);
   }
 }

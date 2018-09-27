@@ -2,7 +2,7 @@ package yevheniikarlov.analyticaltool.io.impl;
 
 import java.util.Scanner;
 
-import yevheniikarlov.analyticaltool.data.Data;
+import yevheniikarlov.analyticaltool.data.DataEntry;
 import yevheniikarlov.analyticaltool.io.IO;
 
 public class ConsoleIO implements IO {
@@ -15,9 +15,14 @@ public class ConsoleIO implements IO {
   }
 
   @Override
-  public Data readDataLine() {
+  public int readCount() {
+    return Integer.parseInt(scanner.nextLine());
+  }
+
+  @Override
+  public DataEntry readDataEntry() {
     String dataLine = scanner.nextLine();
-    return parser.parse(dataLine);
+    return parser.parseDataEntry(dataLine);
   }
 
   @Override

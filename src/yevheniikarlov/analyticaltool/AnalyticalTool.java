@@ -2,40 +2,37 @@ package yevheniikarlov.analyticaltool;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Optional;
 import java.util.OptionalDouble;
 
-import yevheniikarlov.analyticaltool.data.Data;
+import yevheniikarlov.analyticaltool.data.DataEntry;
 import yevheniikarlov.analyticaltool.data.Query;
 import yevheniikarlov.analyticaltool.data.WaitingTimeLine;
-import yevheniikarlov.analyticaltool.io.IO;
 
 public class AnalyticalTool {
-  private IO io;
+  private static final String NOT_DEFINED = "-";
   private Collection<WaitingTimeLine> records;
 
-  public AnalyticalTool(IO io) {
-    this.io = io;
+  public AnalyticalTool() {
     this.records = new ArrayList<>();
   }
 
-  public void handleDataLine() {
-    Data data = io.readDataLine();
-    if (data instanceof WaitingTimeLine) {
-      records.add((WaitingTimeLine) data);
+  public Optional<String> handleDataEntry(DataEntry dataEntry) {
+    if (dataEntry instanceof WaitingTimeLine) {
+      records.add((WaitingTimeLine) dataEntry);
+      return Optional.empty();
     } else {
-      String queryResult = handleQuery((Query) data);
-      io.printLine(queryResult);
+      return Optional.of(handleQuery((Query) dataEntry));
     }
   }
 
   private String handleQuery(Query query) {
-    OptionalDouble optionalAverage = records.stream().filter(query::isMatching)
-        .mapToInt(record -> record.getTime().getMinutes()).average();
+    OptionalDouble optionalAverage = records.stream().filter(query::embraces)
+        .mapToInt(WaitingTimeLine::getMinutes).average();
     if (optionalAverage.isPresent()) {
-      double average = optionalAverage.getAsDouble();
-      long roundedAverage = Math.round(average);
+      long roundedAverage = Math.round(optionalAverage.getAsDouble());
       return Long.toString(roundedAverage);
     }
-    return "-";
+    return NOT_DEFINED;
   }
 }

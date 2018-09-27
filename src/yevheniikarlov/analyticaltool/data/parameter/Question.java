@@ -7,6 +7,8 @@ public class Question {
   private Integer categoryId;
   private Integer subCategoryId;
 
+  protected Question() {}
+
   public Question(Integer questionTypeId, Integer categoryId,
       Integer subCategoryId) {
     this.questionTypeId = questionTypeId;
@@ -14,16 +16,22 @@ public class Question {
     this.subCategoryId = subCategoryId;
   }
 
-  public boolean isBelongs(Question holder) {
-    if (Objects.isNull(holder))
-      return true;
-    boolean isBelongs = Objects.equals(holder.questionTypeId, questionTypeId);
-    if (Objects.nonNull(holder.categoryId)) {
-      isBelongs = Objects.equals(holder.categoryId, categoryId);
-      if (Objects.nonNull(holder.subCategoryId)) {
-        isBelongs = Objects.equals(holder.subCategoryId, subCategoryId);
+  public boolean embraces(Question other) {
+    boolean embraces = Objects.equals(questionTypeId, other.questionTypeId);
+    if (this.hasCategory()) {
+      embraces = Objects.equals(categoryId, other.categoryId);
+      if (this.hasSubCategory()) {
+        embraces = Objects.equals(subCategoryId, other.subCategoryId);
       }
     }
-    return isBelongs;
+    return embraces;
+  }
+
+  private boolean hasCategory() {
+    return Objects.nonNull(categoryId);
+  }
+
+  private boolean hasSubCategory() {
+    return Objects.nonNull(subCategoryId);
   }
 }
